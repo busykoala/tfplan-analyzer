@@ -1,6 +1,10 @@
-``# TF Plan Analyzer
+# TF Plan Analyzer
 
-This is a simple tool to analyze the output of a `terraform plan` command. It will show you the resources that will be created, updated, or deleted, or the diff of a specific resource.
+This is a simple tool to analyze the output of a `terraform plan` command. It
+will show you the resources that will be created, updated, or deleted, or the
+diff of a specific resource.
+
+![Diff Example](./assets/diff.png)
 
 ## Usage
 
