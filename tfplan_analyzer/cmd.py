@@ -9,6 +9,20 @@ from pydantic import ValidationError
 from tfplan_analyzer.models import Plan
 
 
+def load_plan(tfpath: str, binary: str):
+    try:
+        return get_plan(tfpath, binary)
+    except Exception as e:
+        print(f"Error loading plan: {e}")
+        return None
+
+
+def display_changes(plan, action_filter):
+    for change in plan.resource_changes:
+        if change.change.actions == [action_filter]:
+            print(f"{change.address} ({change.type})")
+
+
 def check_path(tfpath: str) -> Path:
     path_obj = Path(tfpath)
     if not path_obj.exists():
