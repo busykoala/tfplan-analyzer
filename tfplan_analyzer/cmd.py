@@ -16,19 +16,30 @@ def check_path(tfpath: str) -> Path:
         raise typer.Abort()
     return path_obj
 
+
 def check_software_installed(command: str) -> bool:
     try:
         subprocess.run(
             [command, "--version"],
-            check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
         return True
     except (subprocess.CalledProcessError, FileNotFoundError):
         return False
 
+
 def get_command(tfpath: Path, binary: str = "tofu") -> List[str]:
     commands = {
         "tofu": ["tofu", f"-chdir={tfpath.parent}", "show", "-json", tfpath],
-        "terraform": ["terraform", f"-chdir={tfpath.parent}", "show", "-json", tfpath]
+        "terraform": [
+            "terraform",
+            f"-chdir={tfpath.parent}",
+            "show",
+            "-json",
+            tfpath,
+        ],
     }
 
     if binary not in commands:
@@ -41,11 +52,13 @@ def get_command(tfpath: Path, binary: str = "tofu") -> List[str]:
 
     return commands[binary]
 
+
 def get_plan(tfpath: str, binary_used: str = "tofu") -> Plan:
     path = check_path(tfpath)
     command = get_command(path, binary_used)
     result = subprocess.run(
-        command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+    )
 
     if result.returncode != 0:
         typer.echo(f"Failed to run {binary_used}. Error: {result.stderr}")

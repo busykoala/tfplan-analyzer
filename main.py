@@ -13,6 +13,7 @@ def added(tfpath: str, binary: str = "tofu"):
         if change.change.actions == ["create"]:
             print(f"{change.address} ({change.type})")
 
+
 @app.command()
 def changed(tfpath: str):
     plan = get_plan(tfpath)
@@ -21,6 +22,7 @@ def changed(tfpath: str):
         if change.change.actions == ["update"]:
             print(f"{change.address} ({change.type})")
 
+
 @app.command()
 def destroyed(tfpath: str):
     plan = get_plan(tfpath)
@@ -28,6 +30,7 @@ def destroyed(tfpath: str):
     for change in plan.resource_changes:
         if change.change.actions == ["delete"]:
             print(f"{change.address} ({change.type})")
+
 
 if __name__ == "__main__":
     app()

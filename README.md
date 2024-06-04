@@ -24,6 +24,6 @@ poetry run python main.py added|changed|destroyed path/to/terraform/main.tfplan 
 poetry install
 
 # Format code
-poetry run ruff check . --fix
-ruff check . --fix
+poetry run ruff format .
+ruff format .
 ```
